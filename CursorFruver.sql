@@ -72,7 +72,7 @@ BEGIN
   DECLARE cursorUSB CURSOR FOR 
 	SELECT nombreProducto FROM productos;
 	
-  /**	HANDLER --- 	Nos ayuda q cambiar el valor de la variable "var_final" a 1 cuando el cursor llegue al ultimo registro	/
+  /*	HANDLER --- 	Nos ayuda q cambiar el valor de la variable "var_final" a 1 cuando el cursor llegue al ultimo registro	*/
   DECLARE CONTINUE HANDLER FOR NOT FOUND SET var_final = 1;
   
   /*	OPEN indica el comiendo del cursor	*/
