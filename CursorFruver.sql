@@ -67,21 +67,32 @@ BEGIN
   DECLARE lista_nombre VARCHAR(20000) DEFAULT 'NOMBRE PRODUCTOS: ';
   DECLARE nombre varchar(30);
   DECLARE var_final INTEGER DEFAULT 0;
+  
   /*  Declaramos el nombre del cursor y la consulta que usará*/
   DECLARE cursorUSB CURSOR FOR 
 	SELECT nombreProducto FROM productos;
-  
+	
+  /**	HANDLER --- 	Nos ayuda q cambiar el valor de la variable "var_final" a 1 cuando el cursor llegue al ultimo registro	/
   DECLARE CONTINUE HANDLER FOR NOT FOUND SET var_final = 1;
+  
+  /*	OPEN indica el comiendo del cursor	*/
   OPEN cursorUSB;
+  
+  /*	Bucle donde por cada ciclo se agrega el nombre del producto a una lista		*/
   bucle: LOOP
     FETCH cursorUSB INTO nombre;
     IF var_final = 1 THEN
       LEAVE bucle;
     END IF;
 	SET lista_nombre = CONCAT(lista_nombre, ', ',nombre );
+	/*	Cierre del bucle y el cursor	*/
   END LOOP bucle;
   CLOSE cursorUSB;
+  
+  /*	Consulta que nos muestra laa lista final	*/
   SELECT lista_nombre;
 END
 °°
+
+/*	llamdo del procedimiento almacenado*/
 CALL ESQUENOSE;
